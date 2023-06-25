@@ -1,30 +1,16 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(require("fs"));
-const matches = fs_1.default
-    .readFileSync("football.csv", {
-    encoding: "utf-8",
-})
-    .split("\n")
-    .map((row) => {
-    return row.split(",");
-});
-// enum = enumeration
-var MatchRes;
-(function (MatchRes) {
-    MatchRes["HomeWin"] = "H";
-    MatchRes["AwayWin"] = "A";
-    MatchRes["Draw"] = "D";
-})(MatchRes || (MatchRes = {}));
+const CsvFileReader_1 = require("./CsvFileReader");
+const MatchResults_1 = require("./MatchResults");
+const reader = new CsvFileReader_1.CsvFileReader("football.csv");
+reader.read();
+// const x = reader.data[0][5]
 let manUnitedWins = 0;
-for (let match of matches) {
-    if (match[1] === "Man United" && match[5] === MatchRes.HomeWin) {
+for (let match of reader.data) {
+    if (match[1] === "Man United" && match[5] === MatchResults_1.MatchResults.HomeWin) {
         manUnitedWins++;
     }
-    else if (match[2] === "Man United" && match[5] === MatchRes.AwayWin) {
+    else if (match[2] === "Man United" && match[5] === MatchResults_1.MatchResults.AwayWin) {
         manUnitedWins++;
     }
 }
