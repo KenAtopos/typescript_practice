@@ -1,9 +1,14 @@
-interface UserProps {
+import { Eventing } from "./Eventing";
+
+export interface UserProps {
+  id?: number;
   name?: string;
   age?: number; // optional interface property
 }
 
 export class User {
+  public events: Eventing = new Eventing();
+
   constructor(private data: UserProps) {}
 
   get(propName: string): string | number {
